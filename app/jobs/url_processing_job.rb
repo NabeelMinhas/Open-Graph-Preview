@@ -9,7 +9,8 @@ class UrlProcessingJob < ApplicationJob
 
     image_url = image_tag['content'] if image_tag
 
-    Preview.create(url: url, image_url: image_url)
+    preview = Preview.create(url: url, image_url: image_url)
+    ActionCable.server.broadcast("preview_channel", preview)
   rescue StandardError
     nil
   end

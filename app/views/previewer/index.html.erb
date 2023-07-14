@@ -1,12 +1,15 @@
-<%= form_tag process_url_path, method: :post do %>
-  <%= text_field_tag :url, nil, placeholder: 'Enter URL' %>
-  <%= submit_tag 'Preview' %>
+<%= form_with url: process_url_path, method: :post, remote: true do |form| %>
+  <%= form.text_field :url, placeholder: 'Enter URL' %>
+  <%= form.submit 'Submit' %>
 <% end %>
 
-<% if @preview %>
-  <% if @preview.image_url %>
-    <%= image_tag @preview.image_url %>
-  <% else %>
-    <p>No Open Graph image found for the given URL.</p>
+<h1>Previewer</h1>
+<div id="img_url">
+  <% if @preview %>
+    <% if @preview.image_url %>
+      <img src="<%= @preview.image_url %>" alt="Preview Image">
+    <% else %>
+      <p>No Open Graph image found for the given URL.</p>
+    <% end %>
   <% end %>
-<% end %>
+</div>
