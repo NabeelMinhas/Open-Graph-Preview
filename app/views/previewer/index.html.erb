@@ -1,0 +1,12 @@
+<%= form_tag process_url_path, method: :post do %>
+  <%= text_field_tag :url, nil, placeholder: 'Enter URL' %>
+  <%= submit_tag 'Preview' %>
+<% end %>
+
+<% if @preview %>
+  <% if @preview.image_url %>
+    <%= image_tag @preview.image_url %>
+  <% else %>
+    <p>No Open Graph image found for the given URL.</p>
+  <% end %>
+<% end %>
