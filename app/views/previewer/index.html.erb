@@ -1,12 +1,30 @@
-<%= form_tag process_url_path, method: :post do %>
-  <%= text_field_tag :url, nil, placeholder: 'Enter URL' %>
-  <%= submit_tag 'Preview' %>
-<% end %>
+<div class="container py-5">
+  <header class="text-white text-center py-5">
+      <h1 class="display-4">Open Graph Preview By Luna</h1>
+      <p class="lead mb-0">Paste web page url</p>
+      <p class="mb-5 font-weight-light">to see the magic</p>
+      <img src="https://bootstrapious.com/i/snippets/sn-img-upload/image.svg" alt="" width="150" class="mb-4">
+  </header>
 
-<% if @preview %>
-  <% if @preview.image_url %>
-    <%= image_tag @preview.image_url %>
-  <% else %>
-    <p>No Open Graph image found for the given URL.</p>
-  <% end %>
-<% end %>
+  <div class="row py-4">
+    <%= form_with url: process_url_path, method: :post, remote: true, html: { id: 'url_form' } do |form| %>
+        <%= form.text_field :url, placeholder: 'Enter URL', required: true, class: ' input-group mb-3 px-3 py-3 rounded-pill bg-white shadow-sm form-control mb-3' %>
+          <div class="text-center">
+            <%= form.submit 'Preview', class: 'btn btn-primary mb-3' %>
+          </div>
+    <% end %>
+
+    <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
+    <div id="img_url" class="image-area text-center mt-4">
+            <% if @preview %>
+              <% if @preview.image_url %>
+                <img src="<%= @preview.image_url %>" alt="Preview Image" class="img-fluid" style="max-width: 100%; max-height: 100%;">
+              <% else %>
+                <p>No Open Graph image found for the given URL.</p>
+              <% end %>
+            <% end %>
+        <img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+    </div>
+  </div>
+</div>
