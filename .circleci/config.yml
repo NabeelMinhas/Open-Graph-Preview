@@ -23,6 +23,10 @@ jobs:
 
       # Bundle install dependencies
       - run:
+          name: Update RubyGems
+          command: gem update --system --force
+
+      - run:
           name: Configure Bundler path
           command: bundle config set path 'vendor/bundle'
       - run:
