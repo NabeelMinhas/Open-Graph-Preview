@@ -60,6 +60,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'axe-core-capybara'
   gem 'bullet'
+  gem 'brakeman', '6.1.2'
   gem 'bundler-audit'
   gem 'pronto'
   gem 'pronto-brakeman', require: false
