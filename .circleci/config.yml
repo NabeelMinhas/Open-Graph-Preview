@@ -65,6 +65,11 @@ jobs:
       - run:
           name: Bundler Audit
           command: bundle exec bundle-audit update && bundle exec bundle-audit check
+
+      - run:
+          name: Set Executable Permissions for Brakeman
+          command: chmod +x ./bin/brakeman
+
       - run:
           name: Brakeman
           command: ./bin/brakeman
@@ -73,10 +78,6 @@ jobs:
       - run:
           name: Pronto
           command: ./bin/ci_pronto
-
-      - run:
-          name: Set Executable Permissions for Brakeman
-          command: chmod +x ./bin/brakeman
 
       # Save Brakeman
       - store_artifacts:
