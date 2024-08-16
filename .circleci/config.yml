@@ -4,10 +4,10 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7
+      - image: cimg/ruby:2.7.0
         environment:
           RAILS_ENV: test
-   
+      - image: cimg/postgres:13.4
     steps:
       - checkout
       - browser-tools/install-chrome
