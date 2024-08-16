@@ -123,6 +123,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    faraday-retry (2.2.1)
+      faraday (~> 2.0)
     ffi (1.17.0)
     gitlab (4.20.1)
       httparty (~> 0.20)
@@ -359,6 +361,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  faraday-retry
   importmap-rails
   jbuilder
   nokogiri (~> 1.15, >= 1.15.3)
