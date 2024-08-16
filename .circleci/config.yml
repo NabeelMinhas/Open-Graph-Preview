@@ -7,7 +7,7 @@ jobs:
       - image: cimg/ruby:2.7.0-browsers
         environment:
           RAILS_ENV: test
-      - image: cimg/mysql:8.0
+   
     steps:
       - checkout
       - browser-tools/install-chrome
