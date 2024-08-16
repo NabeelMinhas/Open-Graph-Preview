@@ -74,6 +74,10 @@ jobs:
           name: Brakeman
           command: ./bin/brakeman
 
+      - run:
+          name: Set execute permissions for ci_pronto
+          command: chmod +x ./bin/ci_pronto
+
       # Pronto
       - run:
           name: Pronto
