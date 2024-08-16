@@ -32,9 +32,9 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
-gem 'nokogiri', '~> 1.15', '>= 1.15.3'
+gem 'nokogiri', '>= 1.16.5'
 
-gem 'sidekiq', '~> 5.2.8'
+gem 'sidekiq', '~> 6.5.10'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
