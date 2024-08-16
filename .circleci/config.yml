@@ -42,12 +42,7 @@ jobs:
           key: open-graph-preview-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - run:
-          name: Database Setup
-          command: |
-            cp config/database.yml.ci config/database.yml
-            bin/rails db:setup
-            bin/rails db:test:prepare
+
       # Database setup
       - run:
           name: Create database
