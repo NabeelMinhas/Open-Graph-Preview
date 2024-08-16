@@ -1,0 +1,79 @@
+version: '2.1'
+orbs:
+  browser-tools: circleci/browser-tools@1.3.0
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:2.7.0-browsers
+        environment:
+          RAILS_ENV: test
+      - image: cimg/mysql:8.0
+    steps:
+      - checkout
+      - browser-tools/install-chrome
+
+      # Restore bundle cache
+      - restore_cache:
+          key: open-graph-preview-{{ checksum "Gemfile.lock" }}
+
+      # cmake is required by Rugged, a dependency of Pronto
+      - run:
+          name: Install cmake
+          command: sudo apt-get -y -qq update && sudo apt-get -y -qq install cmake
+
+      # Bundle install dependencies
+      - run:
+          name: Install dependencies
+          command: bundle install --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: open-graph-preview-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Database setup
+      - run:
+          name: Create database
+          command: bundle exec rake db:create
+      - run:
+          name: Load database schema
+          command: bundle exec rake db:schema:load
+
+      # Assets setup
+      - run:
+          name: Precompile Assets
+          command: bundle exec bin/rails assets:precompile
+
+      # Tests
+      - run:
+          name: rake
+          command: bundle exec rake
+
+      # Security analysis
+      - run:
+          name: Bundler Audit
+          command: bundle exec bundle-audit update && bundle exec bundle-audit check
+      - run:
+          name: Brakeman
+          command: ./bin/brakeman
+
+      # Pronto
+      - run:
+          name: Pronto
+          command: ./bin/ci_pronto
+
+      # Save Brakeman
+      - store_artifacts:
+          path: tmp/brakeman.html
+          destination: security/brakeman.html
+
+      # Save Coverage Analysis
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+
+      # Save Capybara Screenshots
+      - store_artifacts:
+          path: tmp/screenshots
+          destination: capybara/screenshots
