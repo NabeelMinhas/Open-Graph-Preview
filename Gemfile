@@ -62,7 +62,7 @@ group :development, :test do
   gem 'bullet'
   gem 'brakeman', '6.1.2'
   gem 'bundler-audit'
-  gem 'pronto'
+  gem 'pronto', require: false
   gem 'pronto-brakeman', require: false
   gem 'pronto-rubocop', require: false
   gem 'pronto-scss', require: false
